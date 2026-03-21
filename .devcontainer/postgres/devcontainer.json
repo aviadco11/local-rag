@@ -1,25 +1,24 @@
-// to check it run : psql -U postgres
+// psql -U postgres
 {
   "name": "Postgres Dev Container",
   "image": "pgvector/pgvector:pg16",
   "remoteUser": "root",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  
+  "containerEnv": {
+    "POSTGRES_DB": "${localEnv:POSTGRES_DB}",
+    "POSTGRES_USER": "${localEnv:POSTGRES_USER}",
+    "POSTGRES_PASSWORD": "${localEnv:POSTGRES_PASSWORD}"
+  },
+
   "mounts": [
     "source=pgdata,target=/var/lib/postgresql/data,type=volume"
   ],
   "forwardPorts": [5432],
-  "containerEnv": {
-    "POSTGRES_DB": "postgres",
-    "POSTGRES_USER": "postgres",
-    "POSTGRES_PASSWORD": "password"
-  },
 
-  // 1. All apt-get and make commands REMOVED. 
-  // We only keep a simple echo or remove this line entirely.
   "postCreateCommand": "echo 'Environment ready'",
   
-  // 2. We only need the SQL command to enable the extension.
-  "postStartCommand": "sh -c 'if [ ! -d /var/lib/postgresql/data/base ]; then su - postgres -c \"initdb -D /var/lib/postgresql/data\"; fi && su - postgres -c \"pg_ctl -D /var/lib/postgresql/data -l /tmp/logfile start\" && until pg_isready -U postgres; do sleep 2; done; psql -U postgres -d postgres -c \"CREATE EXTENSION IF NOT EXISTS vector;\"'",
+  "postStartCommand": "sh -c 'if [ ! -d /var/lib/postgresql/data/base ]; then su - postgres -c \"initdb -D /var/lib/postgresql/data\"; fi && if ! pg_isready -U ${POSTGRES_USER:-postgres} > /dev/null 2>&1; then su - postgres -c \"pg_ctl -D /var/lib/postgresql/data -l /tmp/logfile start\"; until pg_isready -U ${POSTGRES_USER:-postgres}; do sleep 2; done; fi && psql -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-postgres} -f .devcontainer/postgres/setup.sql'",
 
   "customizations": {
     "vscode": {
