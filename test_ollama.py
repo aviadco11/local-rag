@@ -1,4 +1,4 @@
-# or test from cmd : curl http://127.0.0.1:11434/api/tagss
+# or test from cmd : curl http://127.0.0.1:11434/api/tags
 
 import requests
 import json
