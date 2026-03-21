@@ -1,0 +1,23 @@
+{
+  "name": "Ollama Dev Container",
+  "image": "ollama/ollama:latest",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "forwardPorts": [11434],
+  "containerEnv": {
+    "OLLAMA_HOST": "0.0.0.0:11434"
+  },
+
+  // Use ${containerWorkspaceFolder} to find the script no matter where the build starts
+  "postCreateCommand": "apt-get update && apt-get install -y curl && chmod +x ${containerWorkspaceFolder}/.devcontainer/ollama/startup.sh",
+
+  // Point directly to the script with the full path
+  "postStartCommand": "${containerWorkspaceFolder}/.devcontainer/ollama/startup.sh",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode-remote.remote-containers"
+      ]
+    }
+  }
+}

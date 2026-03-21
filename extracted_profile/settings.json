@@ -1,0 +1,78 @@
+{
+  "cSpell.userWords": [
+    "Arix",
+    "boto",
+    "botocore",
+    "dataframe",
+    "iloc",
+    "pymssql",
+    "pyodbc"
+  ],
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "terramate.languageServer.args": [
+    "-mode=stdio"
+  ],
+  "remote.SSH.remotePlatform": {
+    "lvm": "linux",
+    "lvm-tunnel": "linux",
+    "lsdbstg01": "linux"
+  },
+  "mssql.connectionGroups": [
+    {
+      "name": "ROOT",
+      "id": "1180041F-B281-42A5-82E8-ED6AD3F016C9"
+    }
+  ],
+  "github.copilot.nextEditSuggestions.enabled": false,
+  "git.ignoreRebaseWarning": true,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "database-client.autoSync": true,
+  "workbench.iconTheme": "Monokai Classic Icons",
+  "workbench.colorTheme": "Monokai Classic",
+  "workbench.panel.defaultLocation": "bottom",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.resolveGlobalModules": true,
+  "editor.formatOnSave": true,
+  "claudeCode.environmentVariables": [
+    {
+      "name": "DISABLE_TELEMETRY",
+      "value": "1"
+    },
+    {
+      "name": "DISABLE_ERROR_REPORTING",
+      "value": "1"
+    },
+    {
+      "name": "MAX_THINKING_TOKENS",
+      "value": "4096"
+    },
+    {
+      "name": "CLAUDE_CODE_MAX_OUTPUT_TOKENS",
+      "value": "8196"
+    },
+    {
+      "name": "AWS_PROFILE",
+      "value": "claude-code"
+    },
+    {
+      "name": "CLAUDE_CODE_USE_BEDROCK",
+      "value": "1"
+    },
+    {
+      "name": "AWS_REGION",
+      "value": "us-east-1"
+    },
+    {
+      "name": "ANTHROPIC_MODEL",
+      "value": "us.anthropic.claude-sonnet-4-5-20250929-v1:0"
+    }
+  ],
+  "terminal.integrated.defaultProfile.linux": null,
+  "terminal.integrated.defaultLocation": "panel",
+  "terminal.integrated.defaultProfile.osx": null,
+  "terminal.integrated.defaultProfile.windows": null,
+  "editor.dropIntoEditor.preferences": [],
+  "window.newWindowProfile": "Default"
+}
