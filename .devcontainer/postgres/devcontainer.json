@@ -1,31 +1,28 @@
 // psql -U postgres
 {
   "name": "Postgres Dev Container",
-  "image": "pgvector/pgvector:pg16",
+  "image": "timescale/timescaledb-ha:pg16",
   "remoteUser": "root",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-  
+
   "containerEnv": {
     "POSTGRES_DB": "${localEnv:POSTGRES_DB}",
     "POSTGRES_USER": "${localEnv:POSTGRES_USER}",
     "POSTGRES_PASSWORD": "${localEnv:POSTGRES_PASSWORD}"
   },
 
-  "mounts": [
-    "source=pgdata,target=/var/lib/postgresql/data,type=volume"
-  ],
+  "mounts": ["source=pgdata,target=/var/lib/postgresql/data,type=volume"],
   "forwardPorts": [5432],
 
   "postCreateCommand": "echo 'Environment ready'",
-  
-  "postStartCommand": "sh -c 'if [ ! -d /var/lib/postgresql/data/base ]; then su - postgres -c \"initdb -D /var/lib/postgresql/data\"; fi && if ! pg_isready -U ${POSTGRES_USER:-postgres} > /dev/null 2>&1; then su - postgres -c \"pg_ctl -D /var/lib/postgresql/data -l /tmp/logfile start\"; until pg_isready -U ${POSTGRES_USER:-postgres}; do sleep 2; done; fi && psql -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-postgres} -f .devcontainer/postgres/setup.sql'",
+
+  "postStartCommand": "sh -c 'chown -R postgres:postgres /var/lib/postgresql/data && if [ ! -d /var/lib/postgresql/data/base ]; then su - postgres -c \"initdb -D /var/lib/postgresql/data\"; fi && if ! pg_isready -U ${POSTGRES_USER:-postgres} > /dev/null 2>&1; then su - postgres -c \"pg_ctl -D /var/lib/postgresql/data -l /tmp/logfile start\"; until pg_isready -U ${POSTGRES_USER:-postgres}; do sleep 2; done; fi && psql -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-postgres} -f .devcontainer/postgres/setup.sql'",
 
   "customizations": {
     "vscode": {
-      "extensions": [
-        "ms-vscode-remote.remote-containers",
-        "ms-ossdata.vscode-postgresql"
-      ]
+      "extensions": ["ms-vscode-remote.remote-containers", "mvintg.pg-manager"]
     }
   }
 }
+
+
